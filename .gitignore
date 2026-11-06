@@ -1,0 +1,11 @@
+# caches
+__pycache__/
+.ipynb_checkpoints/
+
+# secrets
+.email_cred.key
+
+# run outputs
+logs/
+results/
+checkpoints/

@@ -1,0 +1,58 @@
+{
+    "full": {
+        "BBBP": "BBBP (Blood-Brain Barrier Penetration) predicts whether a molecule can cross the blood-brain barrier. The blood-brain barrier is a membrane separating circulating blood from brain extracellular fluid, preventing most drugs and large molecules from entering the central nervous system. Molecules that typically penetrate the BBB have molecular weight below 500 Da, LogP values between 2 and 4, and fewer than 5 hydrogen bond donors or acceptors-though exceptions exist. The task is to predict whether the input molecule penetrates the blood-brain barrier.",
+        "BACE": "BACE predicts whether a molecule can bind to the human β-Secretase 1 (BACE-1), an aspartic protease involved in pathogenesis of Alzheimer’s disease. BACE-1 contains two lobes with catalytic aspartic residues forming an active-site cleft. Effective inhibitors usually fit this catalytic cleft and interact with these residues. The task is to predict whether the input molecule binds to the BACE-1 enzyme.",
+        "HIV": "HIV predicts whether a molecule can inhibit replication of the Human Immunodeficiency Virus (HIV), a retrovirus responsible for Acquired Immune Deficiency Syndrome (AIDS). Current antiretroviral drugs include nucleoside and non-nuclueoside reverse transcriptase inhibitors (NRTIs and NNRTIs), protease inhibitors, integrase inhibitors, fusion inhibitors, and chemokine receptor CCR5 antagonists-novel structures may also show activity. Structural motifs and features shared by these known drugs-such as aromatic rings, polar groups, hydrogen-bonding motifs, etc.-may help identify activity. The task is to predict whether the input molecule inhibits HIV replication.",
+        "ESOL": "ESOL predicts the water solubility (logS) of small molecules. This dataset consists of experimental solubility data for compounds represented as 2D molecular structures encoded in SMILES strings, without 3D conformational information. Water solubility is influenced by physicochemical properties such as hydrophobicity and melting point, although these factors may not be explicitly provided. Empirical relationships (e.g., involving logP and melting point) can approximate solubility, but they are not exact and may not generalize to all molecules. The task is to predict the water solubility (logS) of the input molecule as a numerical value.",
+        "LIPOPHILICITY": "LIPOPHILICITY predicts the lipophilicity of a molecule, measured as the octanol/water distribution coefficient (logD) at pH 7.4. Lipophilicity is an important property of drug-like molecules that influences both aqueous solubility and membrane permeability. This dataset provides experimental logD values for molecules derived from chemical structure representations. The task is to predict the lipophilicity (logD at pH 7.4) of the input molecule as a numerical value.",
+        "FREESOLV": "FREESOLV predicts the hydration free energy of small molecules, which reflects how favorably a molecule dissolves in water. Hydration free energy is determined by the difference in solvation free energy between the aqueous and gas phases and depends mainly on polarity, hydrogen bonding, and molecular size. This dataset primarily contains non-ionized molecules, so ionization effects (such as pKa) are not considered here. The task is to predict the hydration free energy of the input molecule."
+    },
+    "short": {
+        "BBBP": "The task is to predict whether the input molecule penetrates the blood-brain barrier.",
+        "BACE": "The task is to predict whether the input molecule binds to the BACE-1 enzyme.",
+        "HIV": "The task is to predict whether the input molecule inhibits HIV replication.",
+        "ESOL": "The task is to predict the solubility (logS) of the input molecule.",
+        "LIPOPHILICITY": "The task is to predict the lipophilicity (logD at pH 7.4) of the input molecule.",
+        "FREESOLV": "The task is to predict the hydration free energy of the input molecule."
+    },
+    "_origin": {
+        "title": "MolecularGPT: Open Large Language Model (LLM) for Few-Shot Molecular Property Prediction",
+        "url": "https://arxiv.org/pdf/2406.12950",
+        "authors": "Yuyan Liu, Sirui Ding, Sheng Zhou, Wenqi Fan, and Qiaoyu Tan",
+        "source": "[GitHub](https://github.com/NYUSHCS/MolecularGPT/blob/main/prompts/augmented_selected_prompt_downstream_task.json)의 'rewrite' 값 사용",
+        "BBBP": "Molecules that can diffuse through the brain blood barrier typically have a molecular weight below 500, a LogP value between 2 and 4, and do not exceed five hydrogen bond donors or acceptors.Is the molecule following the three rules or not?",
+        "BACE": "The BACE1 protein is a crucial aspartic-acid protease involved in causing Alzheimer's disease and forming myelin sheaths. It belongs to a group of aspartic proteases and has two lobes with a catalytic Asp residue each, with an active site cleft between them. The objective of the test is to determine if the molecule can attach to the BACE1 protein.Can the assay be effectively performed using this molecule?",
+        "HIV": "AIDs is caused by retroviruses known as human immunodeficiency viruses (HIV). The FDA has approved six main classes of antiretroviral drugs to treat AIDs patients. These classes are nucleoside reverse transcriptase inhibitors (NRTIs), non-nucleoside reverse transcriptase inhibitors (NNRTIs), protease inhibitors, integrase inhibitors, fusion inhibitors, and chemokine receptor CCR5 antagonists.Can this assay be carried out effectively with this molecule?",
+        "ESOL": "An estimation of solubility (logS) can be obtained through negative LogP -0.01 * (MPt-25) + 0.5.Is it possible to estimate the logS of this molecule using its negative logP and MPt?",
+        "LIPOPHILICITY": "What is the logD at pH 7, 4, which measures the lipophilicity of drug molecules and influences both their solubility and permeability across the membrane?Rephrase: What is the identity of this molecule?",
+        "FREESOLV": "Rewrite the expression for calculating the free energy of hydration as \u0394G_hyd = \u0394G_solv,soln - \u0394G_solv,gas + RT ln (10^(-pKa)).What is the predicted free energy of hydration (using the negative pka) for this molecule, based on \u0394G_solv and negative pka?"
+    },
+    "_revice": {
+        "common": "1) 과업 설명 2) 1)에 대한 부가 설명 3) 예측을 위한 힌트 4) 질문/지시문 순서로 변경함. '힌트'는 MolecularGPT와 MoleculeNet에서 가져옴.",
+        "BBBP": "세 가지 rule이 절대적인 기준이 아님.",
+        "BACE": "forming myelin sheaths는 부정확한 정보임.",
+        "HIV": "none",
+        "ESOL": "주어진 식은 근사치임. 2D 구조만 포함됨. logP, MPt를 입력에서 찾으려고 할 수 있기에 영단어로 대체. shortcut 방지를 위해 경험식 제거.",
+        "LIPOPHILICITY": "pH 7, 4 -> pH 7.4. 구간 분류 기준은 혼란을 야기할 수 있기에 제거.",
+        "FREESOLV": "비이온성 중성 분자여서 pKa 영향 없음."
+    },
+    "_task": {
+        "BBBP": "BBB (Brain Blood Barrier)를 통과 (Penetration)할 수 있는지 여부. 통과하면 1.",
+        "BACE": "human β-secretase 1 (BACE-1)를 저해할 수 있는지 여부. 가능하면 1.",
+        "HIV": "HIV의 복제를 저해할 수 있는지 여부. 기존에는 세가지, (confirmed inactive (CI), confirmed active (CA) and confirmed moderately active (CM))로 분류했지만, CA와 CM을 1로, CI를 0으로 이진 분류함.",
+        "ESOL": "Estimate SOLubility (logS)",
+        "LIPOPHILICITY": "세포막 (membrane)에 대한 통과성과 용해성. pH 7.4에서 logD (옥탄올/물 분포 계수)로 측정됨.",
+        "FREESOLV": "FREE SOLVation 데이터. 수화 자유에너지 (hydration free energy, 물에 얼마나 잘 녹는지)를 측정."
+    },
+    "_paper": {
+        "title": "MoleculeNet: A Benchmark for Molecular Machine Learning",
+        "url": "https://arxiv.org/pdf/1703.00564",
+        "authors": "Zhenqin Wu, Bharath Ramsundar, Evan N. Feinberg, Joseph Gomes, Caleb Geniesse, Aneesh S. Pappu, Karl Leswing, and Vijay Pande",
+        "BBBP": "The Blood-brain barrier penetration (BBBP) dataset comes from a recent study on the modeling and prediction of the barrier permeability. As a membrane separating circulating blood and brain extracellular fluid, the blood-brain barrier blocks most drugs, hormones and neurotransmitters. Thus penetration of the barrier forms a long-standing issue in development of drugs targeting central nervous system. This dataset includes binary labels for over 2000 compounds on their permeability properties. Scaffold splitting is also recommended for this well-defined target.",
+        "BACE": "The BACE dataset provides quantitative (IC_50) and qualitative (binary label) binding results for a set of inhibitors of human β-secretase 1 (BACE-1). All data are experimental values reported in scientific literature over the past decade, some with detailed crystal structures available. We merged a collection of 1522 compounds with their 2D structures and binary labels in MoleculeNet, built as a classification task. Similarly, regarding a single protein target, scaffold splitting will be more practically useful.",
+        "HIV": "The HIV dataset was introduced by the Drug Therapeutics Program (DTP) AIDS Antiviral Screen, which tested the ability to inhibit HIV replication for over 40,000 compounds. Screening results were evaluated and placed into three categories: confirmed inactive (CI), confirmed active (CA) and confirmed moderately active (CM). We further combine the latter two labels, making it a classification task between inactive (CI) and active (CA and CM). As we are more interested in discover new categories of HIV inhibitors, scaffold splitting (introduced in the next subsection) is recommended for this dataset.",
+        "ESOL": "ESOL is a small dataset consisting of water solubility data for 1128 compounds. The dataset has been used to train models that estimate solubility directly from chemical structures (as encoded in SMILES strings). Note that these structures don’t include 3D coordinates, since solubility is a property of a molecule and not of its particular conformers.",
+        "LIPOPHILICITY": "Lipophilicity is an important feature of drug molecules that affects both membrane permeability and solubility. This dataset, curated from ChEMBL database, provides experimental results of octanol/water distribution coefficient (logD at pH 7.4) of 4200 compounds.",
+        "FREESOLV": "The Free Solvation Database (FreeSolv) provides experimental and calculated hydration free energy of small molecules in water. A subset of the compounds in the dataset are also used in the SAMPL blind prediction challenge. The calculated values are derived from alchemical free energy calculations using molecular dynamics simulations. We include the experimental values in the benchmark collection, and use calculated values for comparison."
+    }
+}
